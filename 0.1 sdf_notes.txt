@@ -1,0 +1,60 @@
+Enabling integrations:
+
+1) Enable SOAP web services and token-based authentication
+    * setup -> company -> enable features
+        1) On the SuiteCloud tab, under SuiteScript, select Client SuiteScript and Server SuiteScript.
+        2) Under SuiteTalk (Web Services), select SOAP web services.
+        3) Under Manage authentication, select Token-based authentication.
+2) Create an integration record
+    * setup -> integrations -> manage integrations -> new
+        1) To help identify the integration, enter a unique name and description, such as Workiva Integration.
+        2) Under Authentication, select Token-based authentication, and clear TBA: Authorization flow.
+        3) Click Save, and record the consumer key and secret from the confirmation page.
+            3.1) consumer key:          (also: cliend id)
+                4a786560e818014a16a4f0af3c3d5fceec6fe3dd775b34cd5cc81f464e7b4c31
+            3.2) consumer secret:       (also: client secret)
+                ad855523a5511a7d8724e775ebdbb82de59c2b00b70f475aec05c025eb014939
+3) Step 3. Create an integration role
+    * setup -> user/7roles -> manage roles -> new
+    1) Under General, enter a unique name to help identify the role, such as Workiva/NetSuite Integration.
+        name: new_integration_role
+        id: _new_integration_role
+    2) Under Authentication, select Web services only role to enable the role to connect to only the NetSuite API, and not log in to NetSuite directly.
+    3) Under Permissions, add the permissions to enable the integration, such as Full-level permissions to all relevant Transactions, Reports, and Lists in NetSuite.   
+        i create with no permissions
+    4) On the Setup tab under Permissions, add Full-level permissions for:
+        4.1) SOAP web services
+        4.2) Set up company
+        4.3) To enable the role to only authenticate via access tokens, Login using access tokens
+        4.4) To enable the role to create and revoke its own access tokens, User access tokens
+4) Assign the role to the integration user
+    * setup -> user/roles -> manage users
+    1) Select -or create- the integration user for the connector.     
+    2) Under Roles, assign the integration role to the user.
+        setted: new_integration_role created in stept 3
+5) Create the integration user's access token
+    * setup -> user/roles -> access tokens -> new
+        app_name:   test_integration
+        user:       Larry Nelson
+        role:       new_integration_role
+        token_name: test_integration - Larry Nelson, new_integration_role
+
+    ** this returns an ACCESS TOKEN WITH:
+        a) TOKEN ID: 364d202712ba890b2163d9aaf6fe98b3d66b6ded2229abafcafd1314ecbbbd62
+        b) TOKEN SECRET: fcdc685f930d9e54b50b50f403ecf8ed26ff45ea36820303eb6d883b607c4fd2
+        
+
+6) Set up the NetSuite Token Authentication connector
+    * 
+
+CONNECTING
+1) Command palette -> enter an authentication ID:
+    authentication ID = ??????
+2) Press Enter to use the production domain
+    
+3) Enter the account ID: 
+    account id: setup -> company information -> ACCOUNT ID (e.g: TD2906958)
+4) enter the TOKEN ID: 
+    received in our integration access token 
+5) enter the TOKEN SECRET: 
+    received in our integration access token 

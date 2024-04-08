@@ -1,0 +1,129 @@
+OBJECTIVES:
+ 1. Learn how to use the SuiteScript 2.0 API
+ 2. Automate forms through client, user event, and Suitelet scripts
+ 3. Incorporate a foundational set of SuiteScript functions in your scripts
+ 4. Manipulate sublists
+ 5. Integrate searches with scripts
+ 6. Implement bulk processing though schedulend and map/reduce scripts
+ 7. Create custom actions that extend workflows (SuiteFlow)
+ 8. Make use of script based web services (suitelets and RESTlets)
+ 9. Test and debug scripts through client and server-side debugging tools
+ 10. Develop scripts that incorporate a variety of best practices
+
+INTRODUCTION AND GLOSSARY:
+SuiteCloud Platforms: (ways to customize netsuite)
+    a) SuiteBuilder (customization tool)
+        is a static customization; if you want to create a new form you use suiteBuilder.
+        SuiteBuilder its embedded within NS App. Its part of our main tool.
+    b) SuiteFlow (customization tool)
+        is a bussiness process tool; we use suiteFlow when se need to make a process controls
+        an existing business. SuiteFlow as SuiteBuilder is a non programming tool.
+        limited capabilities of customization
+    c) SuiteScript (customization tool)
+        a tool to extend capabilities of NS. Permit us via scripting to alterate the normal
+        functionalities of NS and adapt them to the customer needs.
+        Extend the capabilities of NS through JavaScript.
+    d) SuiteTalk (integration API)
+        Its a tool to integrate external systems with NetSuite.
+    e) SuiteAnalytics 
+        A tool to customize the visualization of Data, to look through the information according
+        to our needs
+    f) SuiteBundler
+        Tool to pack customizations
+
+Types of records
+    i) Entities:        [people]
+        e.g: customers, vendors, employees
+    ii) Transactions:   [movement of money]
+        e.g: SO, PO, Expense Reports
+    iii) CRM Records:   [Activities]
+        e.g: Events, Tasks, Phone Calls...
+    iv) Items:          [Inventory]
+        Inventory items, Item Groups, Discounts...
+
+Types of Scripts
+    01) Client (client side script)
+         to interact directly with the user
+         e.g: to add a valitarion or if you want to default a certain value
+    02) User Event (server side script)
+         manipulate information to send to the client, or setted by the user.
+         e.g: format names
+    03) Scheduled Scripts (server side)
+         scripts triggered on schedule
+         e.g: generate reports or do some actions
+    04) Map/Reduce Scripts (server side)
+         to process large amounts of data.
+    05) Suitelets (server side)
+         Scripts that permit us create custom user interfaces
+         can be used to develop web services, but is better in this case to use a RESTlet.
+    06) RESTlet (server side)
+         to create custom web service integrations if suiteTalk its not enough 
+    07) Portlet (server side)
+         Custom information you maybe want to add to your dashboard. Its like customize
+         your own NS.
+    08) Mass Update Script (server side)
+         Automate mass update actions
+    09) Bundle Installation (server side)
+         to pack an entire development, like create a library
+    10) Workflow Action (server side)
+         no-info
+
+DEVELOPING SuiteScript
+    SYNTAX
+        Required Anotations: 
+            Header: between /** */ we define some directives about our script like:
+            @NApiVersion: Version of SuiteScript    *mandatory or set 1.0 default
+            @NScriptType: type of script            *mandatory
+        Define Statment
+            define (function() { *** })
+        Entry Point function:
+            return{ *** }
+    Tasks: i) 2.0 Hello World
+    ENTRY POYNTS
+        There are 2 types of entry points, clients side and server side
+        beforeLoad->PageInit->saveRecord->BeforeSubmit->(DB)->AfterSubmit
+        a) client-side: (like clientScripts)
+            a.1) page init
+            a.2) save record
+        b) server-side: (like userEvent)
+            b.1) before load
+            b.2) before submit
+            b.3) after submit
+
+SDF
+Also see: SDF NOTES.TXT
+SDF its a tool to upload and administrate scripts in NetSuite
+    a) Download and install Visual Studio Code.
+    b) Download and install SuiteCloud Extension for Visual Studio Code.
+    c) Set up the NetSuite accounts to use with SuiteCloud Extension for Visual Studio Code and optionally set up TBA with your role.
+    d)  
+
+
+
+SCRIPTS, STATEMENTS & ENTRY POINTS
+    I) NAMING
+        Naming: script development in netsuite follow a bunch of safe practices, 
+        naming correctly the file its one of them, we gonna:
+        naming: _<companyAbbreviation>_<scriptType>_<description>.js
+        result: sdr_ue_employee
+        *notice that we use all lower case
+
+    II) CONTEXT
+        context.newRecord = {our new object fields and default values}
+            functions: 
+            getField(options);
+            getValue(options);
+            setValue(fieldname, value);
+            getText(options);
+            setText(options);
+    
+    III) LOGS
+        Debug Logs are typicall used if you are developing your script. 
+        If you want to edit or track some values, maybe you have to use an Audit Log.
+        Error and Emergency would be used if we have to notify important details about our script.
+        4) log.debug
+        3) log.audit
+        2) log.error
+        1) log.emergency
+        The log level its about what kind of log its notified when we set a default log level.
+        The smallest logs level (4) are included in biggers log levels (like 3)
